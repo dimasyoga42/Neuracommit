@@ -14,9 +14,9 @@ export const run = async () => {
     .option("--dry-run", "Only show commit, do not commit")
     .option("--push", "auto push after commit")
     .option("--help", "help menu")
-    .option("--change", "change model ai").addArgument('<Name>').action((name, options) => {
+    .option("--change", "change model ai").addArgument('<Name>').action((Name, options) => {
       if (options.change) {
-        console.log(chalk.bgBlue("testing:", + `${options.change} ${name}`))
+        console.log(chalk.bgBlue("testing:", + `${options.change} ${Name}`))
         return
       }
     })
