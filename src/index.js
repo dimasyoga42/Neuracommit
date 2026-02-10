@@ -15,16 +15,14 @@ export const run = async () => {
     .option("--push", "auto push after commit")
     .option("--help", "help menu")
     .option("--change", "change model ai")
-  cmd.command("change").argument('<name>').action((name) => {
-    if (name) {
-      console.log(name)
-      return true
-    }
-    return false
+
+  cmd.command("change").argument('<name>').option("--name", "mengubah model").action((name) => {
+    return console.log(name)
   })
+
   await cmd.parseAsync(process.argv);
   const options = cmd.opts();
-
+  if (!options) return;
   try {
     const config = await loadConfig(options);
 
