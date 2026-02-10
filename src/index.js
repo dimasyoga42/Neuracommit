@@ -9,19 +9,15 @@ export const run = async () => {
 
   cmd
     .name("Naura-commit")
-    .argument('<Name>')
     .description("Generate Commit from IA")
     .option("--key <apikey>", "Groq API Key Override")
     .option("--dry-run", "Only show commit, do not commit")
     .option("--push", "auto push after commit")
     .option("--help", "help menu")
-    .option("--change", "change model ai").action((Name, options) => {
-      if (options.change) {
-        console.log(chalk.bgBlue("testing:", + `${options.change} ${process.argv}`))
-        return
-      }
-    })
-
+    .option("--change", "change model ai")
+  cmd.command("change").argument('<name>').action((name) => {
+    console.log(name)
+  })
   await cmd.parseAsync(process.argv);
   const options = cmd.opts();
 
