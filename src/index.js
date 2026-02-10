@@ -16,7 +16,9 @@ export const run = async () => {
     .option("--help", "help menu")
     .option("--change", "change model ai")
   cmd.command("change").argument('<name>').action((name) => {
-    return console.log(name)
+    if (name) {
+      return name
+    }
   })
   await cmd.parseAsync(process.argv);
   const options = cmd.opts();
