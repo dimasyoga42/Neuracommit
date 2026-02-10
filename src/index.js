@@ -17,7 +17,7 @@ export const run = async () => {
     .option("--help", "help menu")
     .option("--change", "change model ai").action((Name, options) => {
       if (options.change) {
-        console.log(chalk.bgBlue("testing:", + `${options.change} ${Name}`))
+        console.log(chalk.bgBlue("testing:", + `${options.change} ${process.argv}`))
         return
       }
     })
