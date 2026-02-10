@@ -14,6 +14,12 @@ export const run = async () => {
     .option("--dry-run", "Only show commit, do not commit")
     .option("--push", "auto push after commit")
     .option("--help", "help menu")
+    .option("--change", "change model ai").addArgument('<Name>').action((name, options) => {
+      if (options.change) {
+        console.log(chalk.bgBlue("testing:", + `${options.change} ${name}`))
+        return
+      }
+    })
 
   await cmd.parseAsync(process.argv);
   const options = cmd.opts();
@@ -21,6 +27,13 @@ export const run = async () => {
   try {
     const config = await loadConfig(options);
 
+    if (options.help) {
+      return console.log(chalk.blue(`
+        --dry-run  Only show commit, do not Commit
+        --key <apiKey>  Groq API Key Override
+        --push auto push after commit
+        `))
+    }
     await stageAll();
     const diff = await getstageAll();
 
@@ -34,19 +47,10 @@ export const run = async () => {
     console.log(chalk.green("\nGenerated commit message:"));
     console.log(chalk.white(message));
 
-    if (options.help) {
-      console.log(chalk.blue(`
-        --dry-run  Only show commit, do not Commit
-        --key <apiKey>  Groq API Key Override
-        --push auto push after commit
-        `))
-    }
-
     if (options.dryRun) {
       console.log(chalk.red("Dry-run mode active, commit skipped"));
       return;
     }
-
     await commit(message);
     console.log(chalk.green("Commit created"));
 
