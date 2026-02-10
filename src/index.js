@@ -12,7 +12,8 @@ export const run = async () => {
     .description("Generate Commit from IA")
     .option("--key <apikey>", "Groq API Key Override")
     .option("--dry-run", "Only show commit, do not commit")
-    .option("--push", "auto push after commit");
+    .option("--push", "auto push after commit")
+    .option("--help", "help menu")
 
   await cmd.parseAsync(process.argv);
   const options = cmd.opts();
@@ -32,6 +33,14 @@ export const run = async () => {
 
     console.log(chalk.green("\nGenerated commit message:"));
     console.log(chalk.white(message));
+
+    if (options.help) {
+      console.log(chalk.blue(`
+        --dry-run  Only show commit, do not Commit
+        --key <apiKey>  Groq API Key Override
+        --push auto push after commit
+        `))
+    }
 
     if (options.dryRun) {
       console.log(chalk.red("Dry-run mode active, commit skipped"));
