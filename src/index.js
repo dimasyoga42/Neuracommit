@@ -14,25 +14,12 @@ export const run = async () => {
     .option("--dry-run", "Only show commit, do not commit")
     .option("--push", "auto push after commit")
     .option("--help", "help menu")
-    .option("--change", "change model ai")
-
-  cmd.command("change").argument('<name>').option("--name", "mengubah model").action((name) => {
-    return console.log(name)
-  })
 
   await cmd.parseAsync(process.argv);
   const options = cmd.opts();
   if (!options) return;
   try {
     const config = await loadConfig(options);
-
-    if (options.help) {
-      return console.log(chalk.blue(`
-        --dry-run  Only show commit, do not Commit
-        --key <apiKey>  Groq API Key Override
-        --push auto push after commit
-        `))
-    }
     await stageAll();
     const diff = await getstageAll();
 
